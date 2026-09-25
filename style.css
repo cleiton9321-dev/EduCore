@@ -76,11 +76,25 @@ button {
 }
 
 /* ============================================================
+   Sistema central de telas (screens)
+   Cada tela de nível superior (autenticação ou aplicativo) é um
+   .screen. Só a que tiver .is-active fica visível — controlado
+   por mostrarScreen() em script.js.
+   ============================================================ */
+
+.screen {
+    display: none;
+}
+
+.screen.is-active {
+    display: flex;
+}
+
+/* ============================================================
    App shell
    ============================================================ */
 
 .app {
-    display: flex;
     min-height: 100vh;
 }
 
@@ -153,6 +167,7 @@ button {
     font-size: 14px;
     text-align: left;
     border-left: 2px solid transparent;
+    position: relative;
 }
 
 .nav-item svg {
@@ -171,6 +186,18 @@ button {
     color: var(--accent);
     border-left: 2px solid var(--accent);
     font-weight: 600;
+}
+
+.nav-badge {
+    margin-left: auto;
+    background: var(--danger);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 999px;
+    line-height: 1.5;
 }
 
 .sidebar-footer {
@@ -273,12 +300,14 @@ button {
     box-shadow: var(--shadow-panel);
     margin-bottom: 20px;
     overflow: hidden;
+    flex-wrap: wrap;
 }
 
 .stat {
     flex: 1;
     padding: 16px 20px;
     border-right: 1px solid var(--border);
+    min-width: 140px;
 }
 
 .stat:last-child {
@@ -356,6 +385,8 @@ button {
     justify-content: space-between;
     padding: 10px 4px;
     border-bottom: 1px solid var(--border);
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .attention-row:last-child {
@@ -377,12 +408,18 @@ button {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .attention-media {
     font-family: var(--font-mono);
     font-size: 14px;
     font-weight: 600;
+}
+
+.attention-reason {
+    font-size: 12px;
+    color: var(--text-muted);
 }
 
 /* Recent activities (dashboard) */
@@ -396,6 +433,10 @@ button {
 .recent-row {
     padding: 10px 4px;
     border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .recent-row:last-child {
@@ -470,6 +511,7 @@ button {
     align-items: center;
     gap: 10px;
     margin-bottom: 18px;
+    flex-wrap: wrap;
 }
 
 .search-field {
@@ -556,6 +598,11 @@ select {
 .btn--small {
     padding: 5px 11px;
     font-size: 12.5px;
+}
+
+.btn--full {
+    width: 100%;
+    margin-left: 0;
 }
 
 /* ============================================================
@@ -663,6 +710,11 @@ select {
     color: var(--danger);
 }
 
+.tag--neutral {
+    background: var(--surface-sunken);
+    color: var(--text-muted);
+}
+
 /* ============================================================
    Activities
    ============================================================ */
@@ -694,6 +746,11 @@ select {
 .activity-name {
     font-size: 14.5px;
     font-weight: 600;
+    cursor: pointer;
+}
+
+.activity-name:hover {
+    color: var(--accent);
 }
 
 .activity-bimestre {
@@ -752,8 +809,8 @@ select {
 }
 
 .field--small {
-    flex: 0 0 100px;
-    min-width: 100px;
+    flex: 0 0 130px;
+    min-width: 130px;
 }
 
 .field label {
@@ -827,6 +884,7 @@ select {
     margin-bottom: 18px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
 }
 
 .detail-stat-value {
@@ -856,7 +914,7 @@ select {
 
 /* ============================================================
    Situação breakdown (desempenho view)
-   ============================================================ */
+   ================================================================ */
 
 .situacao-breakdown {
     display: flex;
@@ -963,6 +1021,169 @@ select {
 }
 
 /* ============================================================
+   Autenticação (telas de acesso)
+   ============================================================ */
+
+.auth-screen {
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    padding: 24px;
+}
+
+.auth-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-panel);
+    padding: 30px 30px 26px;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+}
+
+.auth-box--wide {
+    max-width: 460px;
+}
+
+.auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.auth-title {
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.auth-back {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: 0;
+    margin-bottom: 16px;
+}
+
+.auth-back:hover {
+    color: var(--accent);
+}
+
+.auth-hint {
+    margin: 16px 0 0;
+    font-size: 12.5px;
+    color: var(--text-faint);
+    text-align: center;
+}
+
+.auth-hint a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-error {
+    background: var(--danger-soft);
+    color: var(--danger);
+    font-size: 13px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    margin: 0;
+}
+
+.auth-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.auth-choice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    text-align: left;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+}
+
+.auth-choice:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.auth-choice strong {
+    font-size: 14.5px;
+}
+
+.auth-choice span {
+    font-size: 12.5px;
+    color: var(--text-muted);
+}
+
+/* ============================================================
+   Frequência — chamada
+   ============================================================ */
+
+.attendance-toggle {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.attendance-toggle button {
+    border: none;
+    background: var(--surface);
+    padding: 6px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.attendance-toggle button+button {
+    border-left: 1px solid var(--border);
+}
+
+.attendance-toggle button.is-presente.is-selected {
+    background: var(--success-soft);
+    color: var(--success);
+}
+
+.attendance-toggle button.is-falta.is-selected {
+    background: var(--danger-soft);
+    color: var(--danger);
+}
+
+/* ============================================================
+   Turma cards
+   ============================================================ */
+
+.turma-card-stats {
+    display: flex;
+    gap: 16px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+}
+
+.turma-card-stats strong {
+    color: var(--text);
+    font-family: var(--font-mono);
+}
+
+/* ============================================================
    Responsive
    ============================================================ */
 
@@ -1005,6 +1226,13 @@ select {
 
     .nav-item span {
         display: none;
+    }
+
+    .nav-badge {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        margin-left: 0;
     }
 
     .nav-item.is-active {
