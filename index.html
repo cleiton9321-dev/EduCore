@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduCore — Painel do Professor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="brand-mark">EC</span>
+                <div class="brand-text">
+                    <strong>EduCore</strong>
+                    <span>Painel do professor</span>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <button class="nav-item is-active" data-view="dashboard">
+                    <svg viewBox="0 0 20 20" fill="none">
+                        <rect x="2.5" y="2.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4" />
+                        <rect x="11.5" y="2.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4" />
+                        <rect x="2.5" y="11.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4" />
+                        <rect x="11.5" y="11.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.4" />
+                    </svg>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-view="alunos">
+                    <svg viewBox="0 0 20 20" fill="none">
+                        <circle cx="7" cy="6.5" r="2.6" stroke="currentColor" stroke-width="1.4" />
+                        <path d="M2.5 16c0-2.8 2-4.6 4.5-4.6s4.5 1.8 4.5 4.6" stroke="currentColor" stroke-width="1.4"
+                            stroke-linecap="round" />
+                        <circle cx="14.5" cy="6" r="2" stroke="currentColor" stroke-width="1.4" />
+                        <path d="M12.8 11.7c1.8.2 3.2 1.7 3.7 3.7" stroke="currentColor" stroke-width="1.4"
+                            stroke-linecap="round" />
+                    </svg>
+                    <span>Alunos</span>
+                </button>
+                <button class="nav-item" data-view="atividades">
+                    <svg viewBox="0 0 20 20" fill="none">
+                        <rect x="4" y="3" width="12" height="14" rx="1.2" stroke="currentColor" stroke-width="1.4" />
+                        <path d="M7.5 2.5h5v2h-5z" stroke="currentColor" stroke-width="1.4" />
+                        <path d="M6.5 8.5h7M6.5 11.5h7M6.5 14.5h4" stroke="currentColor" stroke-width="1.4"
+                            stroke-linecap="round" />
+                    </svg>
+                    <span>Atividades</span>
+                </button>
+                <button class="nav-item" data-view="notas">
+                    <svg viewBox="0 0 20 20" fill="none">
+                        <path d="M3 5.5h14M3 10h14M3 14.5h9" stroke="currentColor" stroke-width="1.4"
+                            stroke-linecap="round" />
+                        <path d="M16.3 13.2l1 1 2-2.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    <span>Notas</span>
+                </button>
+                <button class="nav-item" data-view="desempenho">
+                    <svg viewBox="0 0 20 20" fill="none">
+                        <path d="M3 16V3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                        <path d="M3 16h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                        <path d="M5.5 13l3-3.4 2.4 2 4-5.2" stroke="currentColor" stroke-width="1.4"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>Desempenho</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="nav-item nav-item--muted" data-view="config">
+                    <svg viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="2.3" stroke="currentColor" stroke-width="1.4" />
+                        <path
+                            d="M10 3v1.6M10 15.4V17M17 10h-1.6M4.6 10H3M14.9 5.1l-1.1 1.1M6.2 13.7l-1.1 1.1M14.9 14.9l-1.1-1.1M6.2 6.2 5.1 5.1"
+                            stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                    </svg>
+                    <span>Configurações</span>
+                </button>
+            </div>
+        </aside>
+
+        <div class="main">
+
+            <header class="topbar">
+                <div class="topbar-info">
+                    <h1 id="topbar-title">Dashboard</h1>
+                    <p id="topbar-subtitle">2º Desenvolvimento de Sistemas</p>
+                </div>
+                <div class="topbar-teacher">
+                    <div class="teacher-avatar">PS</div>
+                    <div class="teacher-name">
+                        <strong>Profa. Patrícia Souza</strong>
+                        <span>Turma 2º DS — Noturno</span>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content">
+
+                <!-- DASHBOARD -->
+                <section id="view-dashboard" class="view is-active">
+
+                    <div class="stat-strip" id="stat-strip"></div>
+
+                    <div class="board-grid">
+                        <div class="panel panel--primary">
+                            <div class="panel-head">
+                                <h2>Precisam de atenção</h2>
+                                <span class="panel-head-hint">Média abaixo de 6</span>
+                            </div>
+                            <div id="attention-list" class="attention-list"></div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h2>Atividades recentes</h2>
+                            </div>
+                            <div id="recent-activities" class="recent-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-head">
+                            <h2>Desempenho por bimestre</h2>
+                            <span class="panel-head-hint">Média da turma</span>
+                        </div>
+                        <div id="bimester-overview" class="bimester-overview"></div>
+                    </div>
+
+                </section>
+
+                <!-- ALUNOS -->
+                <section id="view-alunos" class="view">
+                    <div class="view-toolbar">
+                        <div class="search-field">
+                            <svg viewBox="0 0 20 20" fill="none">
+                                <circle cx="8.5" cy="8.5" r="5.3" stroke="currentColor" stroke-width="1.4" />
+                                <path d="M16 16l-3.3-3.3" stroke="currentColor" stroke-width="1.4"
+                                    stroke-linecap="round" />
+                            </svg>
+                            <input type="text" id="aluno-search" placeholder="Pesquisar aluno...">
+                        </div>
+                        <select id="aluno-filter-situacao">
+                            <option value="todas">Todas as situações</option>
+                            <option value="Aprovado">Aprovado</option>
+                            <option value="Recuperação">Recuperação</option>
+                            <option value="Insuficiente">Insuficiente</option>
+                        </select>
+                        <button class="btn btn--primary" id="btn-novo-aluno">Novo aluno</button>
+                    </div>
+
+                    <div class="panel panel--table">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Aluno</th>
+                                    <th>Matrícula</th>
+                                    <th>Turma</th>
+                                    <th>Média</th>
+                                    <th>Situação</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="alunos-tbody"></tbody>
+                        </table>
+                        <p class="empty-state" id="alunos-empty" hidden>Nenhum aluno encontrado.</p>
+                    </div>
+                </section>
+
+                <!-- ATIVIDADES -->
+                <section id="view-atividades" class="view">
+                    <div class="view-toolbar">
+                        <select id="atividade-filter-bimestre">
+                            <option value="todos">Todos os bimestres</option>
+                            <option value="1">1º Bimestre</option>
+                            <option value="2">2º Bimestre</option>
+                            <option value="3">3º Bimestre</option>
+                            <option value="4">4º Bimestre</option>
+                        </select>
+                        <button class="btn btn--primary" id="btn-nova-atividade">Nova atividade</button>
+                    </div>
+
+                    <div class="activity-grid" id="activity-grid"></div>
+                </section>
+
+                <!-- NOTAS -->
+                <section id="view-notas" class="view">
+                    <div class="panel panel--form">
+                        <div class="panel-head">
+                            <h2>Lançar nota</h2>
+                        </div>
+                        <form id="form-notas" class="inline-form">
+                            <div class="field">
+                                <label for="nota-aluno">Aluno</label>
+                                <select id="nota-aluno" required></select>
+                            </div>
+                            <div class="field">
+                                <label for="nota-atividade">Atividade</label>
+                                <select id="nota-atividade" required></select>
+                            </div>
+                            <div class="field field--small">
+                                <label for="nota-valor">Nota</label>
+                                <input type="number" id="nota-valor" min="0" step="0.1" required>
+                            </div>
+                            <button type="submit" class="btn btn--primary">Lançar nota</button>
+                        </form>
+                    </div>
+
+                    <div class="panel panel--table">
+                        <div class="panel-head">
+                            <h2>Notas lançadas</h2>
+                            <span class="panel-head-hint">Por aluno e atividade</span>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="data-table" id="notas-table">
+                                <thead id="notas-thead"></thead>
+                                <tbody id="notas-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- DESEMPENHO -->
+                <section id="view-desempenho" class="view">
+                    <div class="view-toolbar">
+                        <select id="desempenho-aluno-select">
+                            <option value="turma">Turma inteira</option>
+                        </select>
+                    </div>
+
+                    <div class="stat-strip" id="desempenho-strip"></div>
+
+                    <div class="board-grid">
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h2>Situação dos alunos</h2>
+                            </div>
+                            <div id="situacao-breakdown" class="situacao-breakdown"></div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-head">
+                                <h2>Média por bimestre</h2>
+                            </div>
+                            <div id="desempenho-bimestre" class="bimester-overview"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CONFIGURAÇÕES -->
+                <section id="view-config" class="view">
+                    <div class="panel panel--form">
+                        <div class="panel-head">
+                            <h2>Critérios de situação</h2>
+                            <span class="panel-head-hint">Definidos em script.js</span>
+                        </div>
+                        <p class="config-note">
+                            Média igual ou acima de <strong>6,0</strong>: Aprovado.<br>
+                            Média entre <strong>4,0</strong> e <strong>5,9</strong>: Recuperação.<br>
+                            Média abaixo de <strong>4,0</strong>: Insuficiente.
+                        </p>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" role="dialog" aria-modal="true">
+            <div class="modal-head">
+                <h3 id="modal-title">Título</h3>
+                <button class="modal-close" id="modal-close" aria-label="Fechar">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
