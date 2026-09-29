@@ -1,37 +1,21 @@
-/* ============================================================
-   EduCore — Design tokens
-   ============================================================ */
+/* ================================================================
+   EduCore — style.css
+   Índice:
+     01. Reset            10. Forms
+     02. Tokens            11. Activities
+     03. Base              12. Attendance
+     04. Layout             13. Modal
+     05. Sidebar           14. Authentication
+     06. Topbar            15. Settings
+     07. Dashboard         16. Accessibility
+     08. Cards             17. Responsive
+     09. Tables            18. Motion (animações e microinterações)
+   ================================================================ */
 
-:root {
-    --bg: #f5f5f2;
-    --surface: #ffffff;
-    --surface-sunken: #eeeeea;
-    --border: #dedcd6;
-    --border-strong: #c7c4bc;
 
-    --text: #21231f;
-    --text-muted: #63665d;
-    --text-faint: #96958a;
-
-    --accent: #2e4374;
-    --accent-hover: #23345b;
-    --accent-soft: #e7ebf3;
-
-    --success: #3f7d58;
-    --success-soft: #e6f1ea;
-    --warning: #a6752c;
-    --warning-soft: #f4ecdc;
-    --danger: #b34a3d;
-    --danger-soft: #f5e6e3;
-
-    --radius-sm: 5px;
-    --radius-md: 8px;
-    --shadow-panel: 0 1px 2px rgba(33, 35, 31, 0.06);
-    --shadow-modal: 0 16px 40px rgba(20, 22, 18, 0.22);
-
-    --font-ui: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
-    --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-}
+/* ================================================================
+   01. RESET
+   ================================================================ */
 
 * {
     box-sizing: border-box;
@@ -44,25 +28,21 @@ body {
 
 body {
     margin: 0;
-    font-family: var(--font-ui);
-    background: var(--bg);
-    color: var(--text);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
 h2,
 h3 {
     margin: 0;
-    font-weight: 600;
-    letter-spacing: -0.01em;
 }
 
 button,
 input,
-select {
+select,
+textarea {
     font-family: inherit;
-    font-size: inherit;
     color: inherit;
 }
 
@@ -70,18 +50,166 @@ button {
     cursor: pointer;
 }
 
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+
+/* ================================================================
+   02. TOKENS
+   ================================================================ */
+
+:root {
+    /* -- superfícies (claro) -- */
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --surface-sunken: #eef1f5;
+    --border: #e1e5eb;
+    --border-strong: #c7cedb;
+
+    /* -- texto (claro) -- */
+    --text: #1b2130;
+    --text-muted: #5e6675;
+    --text-faint: #949cab;
+
+    /* -- cor institucional (navegação / elementos principais) -- */
+    --accent: #2f5aa3;
+    --accent-hover: #24467f;
+    --accent-soft: #e8effb;
+    --accent-rgb: 47, 90, 163;
+
+    /* -- lavanda (desempenho / notas) -- */
+    --lavender: #6c62b0;
+    --lavender-soft: #ece9f9;
+
+    /* -- verde (frequência / situação positiva) -- */
+    --success: #3c8a63;
+    --success-soft: #e3f3ea;
+
+    /* -- amarelo (atenção / pendências) -- */
+    --warning: #ad7d24;
+    --warning-soft: #faf1dc;
+
+    /* -- vermelho (problemas / erros) -- */
+    --danger: #bb4a3d;
+    --danger-soft: #fbe9e5;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --shadow-panel: 0 1px 2px rgba(20, 24, 33, 0.045), 0 1px 10px rgba(20, 24, 33, 0.035);
+    --shadow-hover: 0 6px 18px rgba(20, 24, 33, 0.08);
+    --shadow-modal: 0 24px 60px rgba(10, 12, 18, 0.28);
+
+    --ease: 130ms cubic-bezier(0.2, 0, 0, 1);
+    --ease-curve: cubic-bezier(0.2, 0, 0, 1);
+    /* só a curva, para `animation` */
+
+    --font-ui: "Inter", "Segoe UI", system-ui, sans-serif;
+    --font-display: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+    /* -- escala tipográfica (rem — controlada por [data-font-size]) -- */
+    --fs-2xs: 0.6875rem;
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.8125rem;
+    --fs-base: 0.875rem;
+    --fs-md: 0.9375rem;
+    --fs-lg: 1.0625rem;
+    --fs-xl: 1.1875rem;
+    --fs-2xl: 1.375rem;
+    --fs-3xl: 1.75rem;
+}
+
+/* Tamanho de fonte: controla apenas o font-size raiz (1rem).
+   Toda a tipografia acima é escrita em rem, então escala junto;
+   espaçamentos (padding/margin/gap) permanecem em px, de propósito. */
+html {
+    font-size: 16px;
+}
+
+html[data-font-size="small"] {
+    font-size: 14px;
+}
+
+html[data-font-size="large"] {
+    font-size: 18px;
+}
+
+html[data-font-size="xlarge"] {
+    font-size: 20px;
+}
+
+/* -- Modo escuro -- */
+html[data-theme="dark"] {
+    --bg: #111412;
+    --surface: #181c19;
+    --surface-sunken: #202521;
+    --border: #303832;
+    --border-strong: #3d463e;
+
+    --text: #f2f4f1;
+    --text-muted: #aab2aa;
+    --text-faint: #7c847d;
+
+    --accent: #8db4d6;
+    --accent-hover: #a9c8e3;
+    --accent-soft: rgba(141, 180, 214, 0.14);
+    --accent-rgb: 141, 180, 214;
+
+    --lavender: #b0a6de;
+    --lavender-soft: rgba(176, 166, 222, 0.14);
+
+    --success: #77c39a;
+    --success-soft: rgba(119, 195, 154, 0.14);
+
+    --warning: #dcaa5a;
+    --warning-soft: rgba(220, 170, 90, 0.14);
+
+    --danger: #e08b7c;
+    --danger-soft: rgba(224, 139, 124, 0.14);
+
+    --shadow-panel: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 10px rgba(0, 0, 0, 0.18);
+    --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.3);
+    --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ================================================================
+   03. BASE
+   ================================================================ */
+
+body {
+    font-family: var(--font-ui);
+    font-size: var(--fs-base);
+    line-height: 1.55;
+    background: var(--bg);
+    color: var(--text);
+    transition: background var(--ease), color var(--ease);
+}
+
+::selection {
+    background: var(--accent-soft);
+    color: var(--accent-hover);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.014em;
+}
+
 :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
+    border-radius: 3px;
 }
 
-/* ============================================================
-   Sistema central de telas (screens)
-   Cada tela de nível superior (autenticação ou aplicativo) é um
-   .screen. Só a que tiver .is-active fica visível — controlado
-   por mostrarScreen() em script.js.
-   ============================================================ */
-
+/* Sistema central de telas: só a .screen com .is-active é exibida.
+   Controlado por mostrarScreen() em script.js — não alterar. */
 .screen {
     display: none;
 }
@@ -90,48 +218,105 @@ button {
     display: flex;
 }
 
-/* ============================================================
-   App shell
-   ============================================================ */
+.view {
+    display: none;
+}
+
+.view.is-active {
+    display: block;
+}
+
+.content-heading {
+    margin-bottom: 20px;
+}
+
+.content-heading h2 {
+    font-size: var(--fs-2xl);
+}
+
+.content-heading p {
+    margin: 4px 0 0;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+}
+
+
+/* ================================================================
+   04. LAYOUT
+   ================================================================ */
 
 .app {
     min-height: 100vh;
 }
 
-/* ---------- Sidebar ---------- */
+.main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+    padding: 28px 32px 60px;
+    overflow-y: auto;
+}
+
+
+/* ================================================================
+   05. SIDEBAR
+   ================================================================ */
 
 .sidebar {
-    width: 232px;
+    width: 240px;
     flex-shrink: 0;
     background: var(--surface);
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
-    padding: 22px 14px;
+    padding: 20px 12px;
+    transition: background var(--ease), border-color var(--ease);
 }
 
 .brand {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 4px 10px 22px;
+    gap: 11px;
+    padding: 4px 10px 20px;
     border-bottom: 1px solid var(--border);
     margin-bottom: 14px;
 }
 
 .brand-mark {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     border-radius: var(--radius-sm);
     background: var(--accent);
     color: #fff;
     font-family: var(--font-mono);
     font-weight: 600;
-    font-size: 13px;
+    font-size: var(--fs-xs);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+}
+
+html[data-theme="dark"] .brand-mark {
+    color: #10141f;
+}
+
+/* Símbolo EduCore (img/logo/educore-mark.svg) inline em .brand-mark e
+   .auth-visual-mark: usa currentColor, então acompanha os dois temas. */
+.brand-mark-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.auth-visual-mark .brand-mark-icon {
+    width: 28px;
+    height: 28px;
 }
 
 .brand-text {
@@ -141,39 +326,52 @@ button {
 }
 
 .brand-text strong {
-    font-size: 15px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-md);
+    letter-spacing: -0.01em;
 }
 
 .brand-text span {
-    font-size: 12px;
+    font-size: var(--fs-2xs);
     color: var(--text-muted);
 }
 
 .nav {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
+}
+
+.nav-group-label {
+    margin: 14px 10px 5px;
+    font-size: var(--fs-2xs);
+    font-weight: 600;
+    color: var(--text-faint);
+    letter-spacing: 0.03em;
 }
 
 .nav-item {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 9px 10px;
+    padding: 8.5px 10px;
     border: none;
     background: transparent;
     border-radius: var(--radius-sm);
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: var(--fs-sm);
     text-align: left;
     border-left: 2px solid transparent;
     position: relative;
+    transition: background var(--ease), color var(--ease), border-color var(--ease);
 }
 
 .nav-item svg {
-    width: 18px;
-    height: 18px;
+    width: 17px;
+    height: 17px;
     flex-shrink: 0;
+    opacity: 0.85;
 }
 
 .nav-item:hover {
@@ -188,21 +386,29 @@ button {
     font-weight: 600;
 }
 
+.nav-item.is-active svg {
+    opacity: 1;
+}
+
 .nav-badge {
     margin-left: auto;
     background: var(--danger);
     color: #fff;
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 0.625rem;
     font-weight: 600;
     padding: 1px 6px;
     border-radius: 999px;
     line-height: 1.5;
 }
 
+html[data-theme="dark"] .nav-badge {
+    color: #14100e;
+}
+
 .sidebar-footer {
     margin-top: auto;
-    padding-top: 14px;
+    padding-top: 12px;
     border-top: 1px solid var(--border);
 }
 
@@ -210,31 +416,28 @@ button {
     color: var(--text-faint);
 }
 
-/* ---------- Main / topbar ---------- */
 
-.main {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-}
+/* ================================================================
+   06. TOPBAR
+   ================================================================ */
 
 .topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 32px;
+    padding: 18px 32px;
     border-bottom: 1px solid var(--border);
     background: var(--surface);
+    transition: background var(--ease), border-color var(--ease);
 }
 
 .topbar-info h1 {
-    font-size: 19px;
+    font-size: var(--fs-xl);
 }
 
 .topbar-info p {
     margin: 2px 0 0;
-    font-size: 13px;
+    font-size: var(--fs-sm);
     color: var(--text-muted);
 }
 
@@ -245,8 +448,8 @@ button {
 }
 
 .teacher-avatar {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     border-radius: var(--radius-sm);
     background: var(--surface-sunken);
     border: 1px solid var(--border);
@@ -254,9 +457,15 @@ button {
     align-items: center;
     justify-content: center;
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: var(--fs-xs);
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--accent);
+}
+
+.teacher-avatar--lg {
+    width: 48px;
+    height: 48px;
+    font-size: var(--fs-md);
 }
 
 .teacher-name {
@@ -266,31 +475,18 @@ button {
 }
 
 .teacher-name strong {
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
 }
 
 .teacher-name span {
-    font-size: 12px;
+    font-size: var(--fs-2xs);
     color: var(--text-muted);
 }
 
-.content {
-    flex: 1;
-    padding: 28px 32px 60px;
-    overflow-y: auto;
-}
 
-.view {
-    display: none;
-}
-
-.view.is-active {
-    display: block;
-}
-
-/* ============================================================
-   Stat strip (dashboard summary — deliberately not a card grid)
-   ============================================================ */
+/* ================================================================
+   07. DASHBOARD
+   ================================================================ */
 
 .stat-strip {
     display: flex;
@@ -305,9 +501,15 @@ button {
 
 .stat {
     flex: 1;
-    padding: 16px 20px;
+    padding: 15px 20px 16px;
     border-right: 1px solid var(--border);
+    border-top: 2px solid transparent;
     min-width: 140px;
+    transition: border-color var(--ease);
+}
+
+.stat:hover {
+    border-top-color: var(--accent);
 }
 
 .stat:last-child {
@@ -315,10 +517,11 @@ button {
 }
 
 .stat-value {
-    font-family: var(--font-mono);
-    font-size: 24px;
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    font-weight: 700;
     color: var(--text);
+    letter-spacing: -0.01em;
 }
 
 .stat-value.is-accent {
@@ -326,52 +529,17 @@ button {
 }
 
 .stat-label {
-    margin-top: 3px;
-    font-size: 12.5px;
+    margin-top: 4px;
+    font-size: var(--fs-xs);
     color: var(--text-muted);
 }
-
-/* ============================================================
-   Panels
-   ============================================================ */
 
 .board-grid {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
-    gap: 18px;
-    margin-bottom: 18px;
+    gap: 16px;
+    margin-bottom: 16px;
 }
-
-.panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-panel);
-    padding: 18px 20px 20px;
-    margin-bottom: 18px;
-}
-
-.board-grid .panel {
-    margin-bottom: 0;
-}
-
-.panel-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 14px;
-}
-
-.panel-head h2 {
-    font-size: 15px;
-}
-
-.panel-head-hint {
-    font-size: 12px;
-    color: var(--text-faint);
-}
-
-/* Attention list (dashboard) */
 
 .attention-list {
     display: flex;
@@ -387,6 +555,11 @@ button {
     border-bottom: 1px solid var(--border);
     gap: 10px;
     flex-wrap: wrap;
+    transition: background var(--ease);
+}
+
+.attention-row:hover {
+    background: var(--surface-sunken);
 }
 
 .attention-row:last-child {
@@ -394,12 +567,12 @@ button {
 }
 
 .attention-name {
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     font-weight: 600;
 }
 
 .attention-turma {
-    font-size: 12px;
+    font-size: var(--fs-xs);
     color: var(--text-muted);
     margin-top: 1px;
 }
@@ -413,16 +586,15 @@ button {
 
 .attention-media {
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: var(--fs-md);
     font-weight: 600;
 }
 
 .attention-reason {
-    font-size: 12px;
-    color: var(--text-muted);
+    font-size: var(--fs-xs);
+    color: var(--warning);
+    font-weight: 600;
 }
-
-/* Recent activities (dashboard) */
 
 .recent-list {
     display: flex;
@@ -437,6 +609,11 @@ button {
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+    transition: background var(--ease);
+}
+
+.recent-row:hover {
+    background: var(--surface-sunken);
 }
 
 .recent-row:last-child {
@@ -444,13 +621,13 @@ button {
 }
 
 .recent-title {
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     font-weight: 600;
 }
 
 .recent-meta {
     margin-top: 2px;
-    font-size: 12px;
+    font-size: var(--fs-xs);
     color: var(--text-muted);
     display: flex;
     gap: 8px;
@@ -458,16 +635,14 @@ button {
 
 .empty-inline {
     padding: 14px 4px;
-    font-size: 13px;
+    font-size: var(--fs-sm);
     color: var(--text-faint);
 }
-
-/* Bimester overview bars */
 
 .bimester-overview {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 .bimester-row {
@@ -478,12 +653,12 @@ button {
 }
 
 .bimester-label {
-    font-size: 13px;
+    font-size: var(--fs-xs);
     color: var(--text-muted);
 }
 
 .bimester-track {
-    height: 8px;
+    height: 7px;
     background: var(--surface-sunken);
     border-radius: 4px;
     overflow: hidden;
@@ -491,123 +666,151 @@ button {
 
 .bimester-fill {
     height: 100%;
-    background: var(--accent);
+    background: var(--lavender);
     border-radius: 4px;
+    transition: width 220ms var(--ease);
 }
 
 .bimester-value {
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: var(--fs-xs);
     font-weight: 600;
     text-align: right;
 }
 
-/* ============================================================
-   Toolbars, inputs, buttons
-   ============================================================ */
 
-.view-toolbar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
-}
+/* ================================================================
+   08. CARDS / PANELS
+   ================================================================ */
 
-.search-field {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.panel {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 8px 12px;
-    flex: 1;
-    max-width: 320px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-panel);
+    padding: 18px 20px 20px;
+    margin-bottom: 16px;
+    transition: background var(--ease), border-color var(--ease), box-shadow var(--ease);
 }
 
-.search-field svg {
-    width: 16px;
-    height: 16px;
+.board-grid .panel {
+    margin-bottom: 0;
+}
+
+.panel--primary {
+    border-top: 2px solid var(--warning);
+}
+
+.panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    gap: 10px;
+}
+
+.panel-head h2 {
+    font-size: var(--fs-md);
+    font-weight: 700;
+}
+
+.panel-head-hint {
+    font-size: var(--fs-xs);
     color: var(--text-faint);
+    white-space: nowrap;
+}
+
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 14px;
+}
+
+.activity-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-panel);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: box-shadow var(--ease), border-color var(--ease);
+}
+
+.activity-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: var(--border-strong);
+}
+
+.activity-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.activity-name {
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: 700;
+    cursor: pointer;
+    transition: color var(--ease);
+}
+
+.activity-name:hover {
+    color: var(--accent);
+}
+
+.activity-bimestre {
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xs);
+    color: var(--lavender);
+    background: var(--lavender-soft);
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
     flex-shrink: 0;
 }
 
-.search-field input {
-    border: none;
-    outline: none;
-    background: transparent;
-    width: 100%;
-    font-size: 13.5px;
-}
-
-select {
-    border: 1px solid var(--border);
-    background: var(--surface);
-    border-radius: var(--radius-sm);
-    padding: 8px 10px;
-    font-size: 13.5px;
-}
-
-.btn {
-    border: 1px solid var(--border-strong);
-    background: var(--surface);
-    border-radius: var(--radius-sm);
-    padding: 8px 16px;
-    font-size: 13.5px;
-    font-weight: 600;
-    margin-left: auto;
-}
-
-.btn:hover {
-    background: var(--surface-sunken);
-}
-
-.btn--primary {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-}
-
-.btn--primary:hover {
-    background: var(--accent-hover);
-}
-
-.btn--danger {
-    background: transparent;
-    border-color: var(--danger);
-    color: var(--danger);
-}
-
-.btn--danger:hover {
-    background: var(--danger-soft);
-}
-
-.btn--ghost {
-    background: transparent;
-    border-color: transparent;
+.activity-desc {
+    font-size: var(--fs-sm);
     color: var(--text-muted);
-    padding: 6px 8px;
+    line-height: 1.5;
 }
 
-.btn--ghost:hover {
-    background: var(--surface-sunken);
+.activity-foot {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.activity-value {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
+
+.turma-card-stats {
+    display: flex;
+    gap: 16px;
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    flex-wrap: wrap;
+}
+
+.turma-card-stats strong {
     color: var(--text);
+    font-family: var(--font-mono);
 }
 
-.btn--small {
-    padding: 5px 11px;
-    font-size: 12.5px;
-}
 
-.btn--full {
-    width: 100%;
-    margin-left: 0;
-}
-
-/* ============================================================
-   Tables
-   ============================================================ */
+/* ================================================================
+   09. TABLES
+   ================================================================ */
 
 .panel--table {
     padding: 0;
@@ -625,28 +828,32 @@ select {
 .data-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
 }
 
 .data-table th {
     text-align: left;
-    font-size: 11.5px;
-    text-transform: none;
+    font-size: var(--fs-2xs);
     color: var(--text-faint);
     font-weight: 600;
-    padding: 14px 20px 10px;
+    padding: 13px 20px 10px;
     border-bottom: 1px solid var(--border);
     white-space: nowrap;
+    letter-spacing: 0.01em;
 }
 
 .data-table td {
-    padding: 12px 20px;
+    padding: 11px 20px;
     border-bottom: 1px solid var(--border);
     vertical-align: middle;
 }
 
 .data-table tbody tr:last-child td {
     border-bottom: none;
+}
+
+.data-table tbody tr {
+    transition: background var(--ease);
 }
 
 .data-table tbody tr:hover {
@@ -670,8 +877,9 @@ select {
 }
 
 .student-cell strong {
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     cursor: pointer;
+    transition: color var(--ease);
 }
 
 .student-cell strong:hover {
@@ -682,16 +890,14 @@ select {
     padding: 32px 20px;
     text-align: center;
     color: var(--text-faint);
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
 }
-
-/* Situation tags */
 
 .tag {
     display: inline-block;
     padding: 3px 9px;
-    border-radius: 4px;
-    font-size: 12px;
+    border-radius: 5px;
+    font-size: var(--fs-2xs);
     font-weight: 600;
 }
 
@@ -715,79 +921,176 @@ select {
     color: var(--text-muted);
 }
 
-/* ============================================================
-   Activities
-   ============================================================ */
-
-.activity-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    gap: 14px;
-}
-
-.activity-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-panel);
-    padding: 16px 18px;
+.situacao-breakdown {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
 
-.activity-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 10px;
+.situacao-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 32px;
+    align-items: center;
+    gap: 12px;
 }
 
-.activity-name {
-    font-size: 14.5px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.activity-name:hover {
-    color: var(--accent);
-}
-
-.activity-bimestre {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 3px 8px;
+.situacao-track {
+    height: 7px;
+    background: var(--surface-sunken);
     border-radius: 4px;
-    white-space: nowrap;
+    overflow: hidden;
+}
+
+.situacao-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 220ms var(--ease);
+}
+
+.situacao-fill.is-success {
+    background: var(--success);
+}
+
+.situacao-fill.is-warning {
+    background: var(--warning);
+}
+
+.situacao-fill.is-danger {
+    background: var(--danger);
+}
+
+.situacao-count {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    text-align: right;
+}
+
+
+/* ================================================================
+   10. FORMS / TOOLBARS / BUTTONS
+   ================================================================ */
+
+.view-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.search-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    flex: 1;
+    max-width: 320px;
+    transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.search-field:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.14);
+}
+
+.search-field svg {
+    width: 16px;
+    height: 16px;
+    color: var(--text-faint);
     flex-shrink: 0;
 }
 
-.activity-desc {
-    font-size: 13px;
+.search-field input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: var(--fs-sm);
+}
+
+select {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    font-size: var(--fs-sm);
+    transition: border-color var(--ease);
+}
+
+select:hover {
+    border-color: var(--border-strong);
+}
+
+.btn {
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    margin-left: auto;
+    transition: background var(--ease), border-color var(--ease), transform var(--ease);
+}
+
+.btn:hover {
+    background: var(--surface-sunken);
+    border-color: var(--text-faint);
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn--primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+html[data-theme="dark"] .btn--primary {
+    color: #10141f;
+}
+
+.btn--primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+
+.btn--danger {
+    background: transparent;
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+.btn--danger:hover {
+    background: var(--danger-soft);
+}
+
+.btn--ghost {
+    background: transparent;
+    border-color: transparent;
     color: var(--text-muted);
-    line-height: 1.45;
+    padding: 6px 8px;
 }
 
-.activity-foot {
-    margin-top: auto;
-    padding-top: 10px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.btn--ghost:hover {
+    background: var(--surface-sunken);
+    color: var(--text);
+    border-color: transparent;
 }
 
-.activity-value {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-muted);
+.btn--small {
+    padding: 5px 11px;
+    font-size: var(--fs-xs);
 }
 
-/* ============================================================
-   Forms
-   ============================================================ */
+.btn--full {
+    width: 100%;
+    margin-left: 0;
+}
 
 .panel--form {
     padding: 20px;
@@ -814,7 +1117,7 @@ select {
 }
 
 .field label {
-    font-size: 12px;
+    font-size: var(--fs-xs);
     color: var(--text-muted);
     font-weight: 600;
 }
@@ -825,8 +1128,28 @@ select {
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 8px 10px;
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
     background: var(--surface);
+    transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+    border-color: var(--border-strong);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.14);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+    color: var(--text-faint);
 }
 
 .field textarea {
@@ -851,29 +1174,13 @@ select {
 }
 
 .config-note {
-    font-size: 14px;
+    font-size: var(--fs-md);
     line-height: 1.9;
     color: var(--text-muted);
 }
 
-/* ============================================================
-   Student detail (inside modal)
-   ============================================================ */
-
-.detail-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 4px;
-}
-
-.detail-head h4 {
-    margin: 0;
-    font-size: 16px;
-}
-
 .detail-sub {
-    font-size: 13px;
+    font-size: var(--fs-sm);
     color: var(--text-muted);
     margin: 2px 0 16px;
 }
@@ -889,12 +1196,12 @@ select {
 
 .detail-stat-value {
     font-family: var(--font-mono);
-    font-size: 20px;
+    font-size: var(--fs-lg);
     font-weight: 600;
 }
 
 .detail-stat-label {
-    font-size: 11.5px;
+    font-size: var(--fs-2xs);
     color: var(--text-faint);
     margin-top: 2px;
 }
@@ -905,68 +1212,67 @@ select {
     justify-content: space-between;
     padding: 9px 0;
     border-bottom: 1px solid var(--border);
-    font-size: 13.5px;
+    font-size: var(--fs-sm);
 }
 
 .detail-activity-row:last-child {
     border-bottom: none;
 }
 
-/* ============================================================
-   Situação breakdown (desempenho view)
+
+/* ================================================================
+   11. ACTIVITIES — ver seção 08 (cards) e 10 (formulários)
    ================================================================ */
 
-.situacao-breakdown {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
 
-.situacao-row {
-    display: grid;
-    grid-template-columns: 120px 1fr 32px;
-    align-items: center;
-    gap: 12px;
-}
+/* ================================================================
+   12. ATTENDANCE (frequência — chamada)
+   ================================================================ */
 
-.situacao-track {
-    height: 8px;
-    background: var(--surface-sunken);
-    border-radius: 4px;
+.attendance-toggle {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
     overflow: hidden;
 }
 
-.situacao-fill {
-    height: 100%;
-    border-radius: 4px;
+.attendance-toggle button {
+    border: none;
+    background: var(--surface);
+    padding: 6px 14px;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: background var(--ease), color var(--ease);
 }
 
-.situacao-fill.is-success {
-    background: var(--success);
+.attendance-toggle button+button {
+    border-left: 1px solid var(--border);
 }
 
-.situacao-fill.is-warning {
-    background: var(--warning);
+.attendance-toggle button:hover {
+    background: var(--surface-sunken);
 }
 
-.situacao-fill.is-danger {
-    background: var(--danger);
+.attendance-toggle button.is-presente.is-selected {
+    background: var(--success-soft);
+    color: var(--success);
 }
 
-.situacao-count {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    text-align: right;
+.attendance-toggle button.is-falta.is-selected {
+    background: var(--danger-soft);
+    color: var(--danger);
 }
 
-/* ============================================================
-   Modal
-   ============================================================ */
+
+/* ================================================================
+   13. MODAL
+   ================================================================ */
 
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(20, 22, 18, 0.4);
+    background: rgba(14, 16, 22, 0.4);
     display: none;
     align-items: center;
     justify-content: center;
@@ -980,6 +1286,7 @@ select {
 
 .modal {
     background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-modal);
     width: 100%;
@@ -992,7 +1299,7 @@ select {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 20px;
+    padding: 17px 20px;
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
@@ -1000,78 +1307,222 @@ select {
 }
 
 .modal-head h3 {
-    font-size: 16px;
+    font-size: var(--fs-lg);
 }
 
 .modal-close {
     border: none;
     background: transparent;
-    font-size: 20px;
+    font-size: 1.2rem;
     line-height: 1;
     color: var(--text-faint);
     padding: 4px;
+    border-radius: 4px;
+    transition: color var(--ease), background var(--ease);
 }
 
 .modal-close:hover {
     color: var(--text);
+    background: var(--surface-sunken);
 }
 
 .modal-body {
     padding: 20px;
 }
 
-/* ============================================================
-   Autenticação (telas de acesso)
-   ============================================================ */
+
+/* ================================================================
+   14. AUTHENTICATION
+   ================================================================
+   Split-screen: painel visual escuro (.auth-visual) + painel de
+   formulário (.auth-panel), ambos filhos diretos de .auth-screen.
+   .auth-screen mantém .screen/.screen.is-active para a navegação
+   central (mostrarScreen), inalterada.
+   ================================================================ */
 
 .auth-screen {
     min-height: 100vh;
+    width: 100%;
+}
+
+.auth-visual {
+    flex: 0 0 44%;
+    position: relative;
+    background: #0d1220;
+    color: #f2f4f8;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.auth-visual-art {
+    position: absolute;
+    inset: 0;
+}
+
+.auth-visual-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(0.4px);
+}
+
+.auth-visual-copy {
+    position: relative;
+    z-index: 1;
+    padding: 48px 44px 56px;
+    max-width: 380px;
+}
+
+.auth-visual-mark {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg);
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-md);
+    background: rgba(242, 244, 248, 0.12);
+    border: 1px solid rgba(242, 244, 248, 0.25);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.auth-visual-copy h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-3xl);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 10px;
+}
+
+.auth-visual-copy p {
+    font-size: var(--fs-md);
+    line-height: 1.6;
+    color: rgba(242, 244, 248, 0.72);
+    margin: 0;
+    max-width: 320px;
+}
+
+.auth-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #10131c;
     padding: 24px;
 }
 
 .auth-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-panel);
-    padding: 30px 30px 26px;
     width: 100%;
     max-width: 380px;
     position: relative;
+    color: #f2f4f8;
 }
 
 .auth-box--wide {
-    max-width: 460px;
+    max-width: 420px;
 }
 
 .auth-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 22px;
+    display: none;
 }
 
 .auth-title {
-    font-size: 18px;
-    margin-bottom: 18px;
+    font-family: var(--font-display);
+    font-size: var(--fs-2xl);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 6px;
+}
+
+.auth-lead {
+    font-size: var(--fs-sm);
+    color: rgba(242, 244, 248, 0.6);
+    margin: 0 0 26px;
 }
 
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 20px;
+}
+
+.field--underline {
+    gap: 8px;
+}
+
+.field--underline label {
+    color: rgba(242, 244, 248, 0.55);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    text-transform: none;
+}
+
+.field--underline input {
+    border: none;
+    border-bottom: 1px solid rgba(242, 244, 248, 0.25);
+    border-radius: 0;
+    background: transparent;
+    padding: 6px 2px 10px;
+    color: #f2f4f8;
+    font-size: var(--fs-md);
+    transition: border-color var(--ease);
+}
+
+.field--underline input:hover {
+    border-color: rgba(242, 244, 248, 0.4);
+}
+
+.field--underline input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: none;
+}
+
+.field--underline input::placeholder {
+    color: rgba(242, 244, 248, 0.32);
+}
+
+.auth-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: -6px;
+}
+
+.auth-check {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: var(--fs-xs);
+    color: rgba(242, 244, 248, 0.6);
+}
+
+.auth-check input {
+    accent-color: var(--accent);
+}
+
+.auth-link {
+    font-size: var(--fs-xs);
+    color: rgba(242, 244, 248, 0.6);
+    text-decoration: none;
+    transition: color var(--ease);
+}
+
+.auth-link:hover {
+    color: #f2f4f8;
 }
 
 .auth-back {
     border: none;
     background: transparent;
-    color: var(--text-muted);
-    font-size: 13px;
+    color: rgba(242, 244, 248, 0.55);
+    font-size: var(--fs-sm);
     padding: 0;
-    margin-bottom: 16px;
+    margin-bottom: 22px;
+    transition: color var(--ease);
 }
 
 .auth-back:hover {
@@ -1079,9 +1530,9 @@ select {
 }
 
 .auth-hint {
-    margin: 16px 0 0;
-    font-size: 12.5px;
-    color: var(--text-faint);
+    margin: 20px 0 0;
+    font-size: var(--fs-xs);
+    color: rgba(242, 244, 248, 0.45);
     text-align: center;
 }
 
@@ -1091,10 +1542,14 @@ select {
     font-weight: 600;
 }
 
+.auth-hint a:hover {
+    text-decoration: underline;
+}
+
 .auth-error {
     background: var(--danger-soft);
     color: var(--danger);
-    font-size: 13px;
+    font-size: var(--fs-sm);
     padding: 8px 10px;
     border-radius: var(--radius-sm);
     margin: 0;
@@ -1112,84 +1567,284 @@ select {
     align-items: flex-start;
     gap: 3px;
     text-align: left;
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: 1px solid rgba(242, 244, 248, 0.16);
+    background: rgba(242, 244, 248, 0.04);
     border-radius: var(--radius-sm);
     padding: 14px 16px;
+    color: #f2f4f8;
+    transition: border-color var(--ease), background var(--ease), transform var(--ease);
 }
 
 .auth-choice:hover {
     border-color: var(--accent);
-    background: var(--accent-soft);
+    background: rgba(242, 244, 248, 0.07);
+    transform: translateX(2px);
 }
 
 .auth-choice strong {
-    font-size: 14.5px;
+    font-size: var(--fs-md);
+    font-family: var(--font-display);
 }
 
 .auth-choice span {
-    font-size: 12.5px;
-    color: var(--text-muted);
+    font-size: var(--fs-xs);
+    color: rgba(242, 244, 248, 0.55);
 }
 
-/* ============================================================
-   Frequência — chamada
-   ============================================================ */
 
-.attendance-toggle {
-    display: inline-flex;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
+/* ================================================================
+   15. SETTINGS (Configurações)
+   ================================================================ */
+
+.panel--settings {
+    padding: 22px 24px;
 }
 
-.attendance-toggle button {
-    border: none;
-    background: var(--surface);
-    padding: 6px 14px;
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--text-muted);
-}
-
-.attendance-toggle button+button {
-    border-left: 1px solid var(--border);
-}
-
-.attendance-toggle button.is-presente.is-selected {
-    background: var(--success-soft);
-    color: var(--success);
-}
-
-.attendance-toggle button.is-falta.is-selected {
-    background: var(--danger-soft);
-    color: var(--danger);
-}
-
-/* ============================================================
-   Turma cards
-   ============================================================ */
-
-.turma-card-stats {
+.settings-profile {
     display: flex;
-    gap: 16px;
-    font-size: 12.5px;
+    align-items: center;
+    gap: 14px;
+}
+
+.settings-profile div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.settings-profile strong {
+    font-size: var(--fs-md);
+}
+
+.settings-profile span {
+    font-size: var(--fs-xs);
     color: var(--text-muted);
+}
+
+.settings-group {
+    padding: 16px 0;
+    border-top: 1px solid var(--border);
+}
+
+.panel--settings .settings-group:first-of-type {
+    border-top: none;
+    padding-top: 4px;
+}
+
+.settings-group h3 {
+    font-family: var(--font-ui);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.option-row {
+    display: flex;
     flex-wrap: wrap;
+    gap: 8px;
 }
 
-.turma-card-stats strong {
+.radio-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: var(--fs-sm);
+    cursor: pointer;
+    transition: border-color var(--ease), background var(--ease), color var(--ease);
+    color: var(--text-muted);
+}
+
+.radio-pill:has(input:checked) {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.radio-pill input {
+    accent-color: var(--accent);
+}
+
+.switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.switch-row+.switch-row {
+    border-top: 1px solid var(--border);
+}
+
+.switch-row span:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.switch-row strong {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+}
+
+.switch-row em {
+    font-style: normal;
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
+
+.switch {
+    position: relative;
+    width: 38px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.switch-track {
+    position: absolute;
+    inset: 0;
+    background: var(--surface-sunken);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    pointer-events: none;
+    transition: background var(--ease), border-color var(--ease);
+}
+
+.switch-track::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    transition: transform var(--ease);
+}
+
+.switch input:checked+.switch-track {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.switch input:checked+.switch-track::before {
+    transform: translateX(16px);
+    background: #fff;
+}
+
+.switch input:focus-visible+.switch-track {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+
+/* ================================================================
+   16. ACCESSIBILITY (alto contraste / reduzir animações)
+   ================================================================
+   Aplicado via classes no <html>, alternadas em script.js a partir
+   das preferências salvas em localStorage (ver PREFS_KEY).
+   ================================================================ */
+
+html.reduce-motion,
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+}
+
+html.reduce-motion .auth-choice:hover {
+    transform: none;
+}
+
+html.high-contrast {
+    --border: var(--border-strong);
+}
+
+html.high-contrast .panel,
+html.high-contrast .activity-card,
+html.high-contrast .stat-strip,
+html.high-contrast .modal,
+html.high-contrast .data-table th,
+html.high-contrast .field input,
+html.high-contrast .field select,
+html.high-contrast .field textarea,
+html.high-contrast select,
+html.high-contrast .search-field,
+html.high-contrast .radio-pill,
+html.high-contrast .switch-track {
+    border-width: 2px;
+}
+
+html.high-contrast .tag {
+    border: 1.5px solid currentColor;
+    background: transparent;
+}
+
+html.high-contrast .nav-item.is-active {
+    border-left-width: 3px;
+    font-weight: 700;
+}
+
+html.high-contrast .btn {
+    border-width: 2px;
+    font-weight: 700;
+}
+
+html.high-contrast :focus-visible {
+    outline-width: 3px;
+}
+
+html.high-contrast .text-muted,
+html.high-contrast .stat-label,
+html.high-contrast .detail-stat-label {
     color: var(--text);
-    font-family: var(--font-mono);
 }
 
-/* ============================================================
-   Responsive
-   ============================================================ */
+
+/* ================================================================
+   17. RESPONSIVE
+   ================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
 
 @media (max-width: 960px) {
     .board-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 860px) {
+    .auth-visual {
+        display: none;
+    }
+
+    .auth-panel {
+        background: #10131c;
     }
 }
 
@@ -1211,6 +1866,10 @@ select {
         margin-bottom: 0;
         padding: 0 14px 0 0;
         border-right: 1px solid var(--border);
+    }
+
+    .nav-group-label {
+        display: none;
     }
 
     .sidebar-footer {
@@ -1267,4 +1926,326 @@ select {
     .form-grid {
         grid-template-columns: 1fr;
     }
+
+    .auth-panel {
+        padding: 24px 18px;
+    }
+
+    .option-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+/* ================================================================
+   18. MOTION (animações e microinterações)
+   ================================================================
+   Só decoração: nada aqui cria/altera elementos. "Reduzir animações"
+   (html.reduce-motion) e prefers-reduced-motion (seção 16/17) usam
+   `animation: none !important`, então TUDO abaixo some junto, sem
+   tratamento extra. Só se anima transform/opacity, entre 150–420ms.
+   Usamos fill-mode `backwards` (não `both`): o elemento volta ao seu
+   estilo normal ao terminar, então :hover com transform continua
+   funcionando e nada fica invisível se a animação não rodar.
+   As telas (.screen / .view) alternam por display:none ↔ flex/block,
+   então as animações reiniciam sozinhas a cada troca, sem JS.
+   ================================================================ */
+
+@keyframes ec-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ec-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes ec-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes ec-scale-out {
+    to {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.98);
+    }
+}
+
+@keyframes ec-shake {
+
+    10%,
+    90% {
+        transform: translateX(-1px);
+    }
+
+    20%,
+    80% {
+        transform: translateX(2px);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translateX(-3px);
+    }
+
+    40%,
+    60% {
+        transform: translateX(3px);
+    }
+}
+
+@keyframes ec-shine {
+    from {
+        transform: translateX(-180%) skewX(-20deg);
+    }
+
+    to {
+        transform: translateX(320%) skewX(-20deg);
+    }
+}
+
+/* ---------- Login: logo → título → card → campos → botão ---------- */
+
+.auth-visual-copy>* {
+    animation: ec-fade-up 460ms var(--ease-curve) backwards;
+}
+
+.auth-visual-copy> :nth-child(1) {
+    animation-delay: 40ms;
+}
+
+.auth-visual-copy> :nth-child(2) {
+    animation-delay: 120ms;
+}
+
+.auth-visual-copy> :nth-child(3) {
+    animation-delay: 200ms;
+}
+
+.auth-box {
+    animation: ec-fade-up 420ms var(--ease-curve) 80ms backwards;
+}
+
+.auth-form>* {
+    animation: ec-fade-up 380ms var(--ease-curve) backwards;
+}
+
+.auth-form> :nth-child(1) {
+    animation-delay: 160ms;
+}
+
+.auth-form> :nth-child(2) {
+    animation-delay: 200ms;
+}
+
+.auth-form> :nth-child(3) {
+    animation-delay: 240ms;
+}
+
+.auth-form> :nth-child(n+4) {
+    animation-delay: 280ms;
+}
+
+.auth-hint {
+    animation: ec-fade-in 400ms var(--ease-curve) 340ms backwards;
+}
+
+/* Erro: [hidden] → visível "recria" o elemento e a animação toca. */
+.auth-error:not([hidden]) {
+    animation: ec-fade-up 260ms var(--ease-curve) backwards;
+}
+
+/* Disparadas por script.js (transicionarParaApp / sacudirErro). */
+.auth-box.is-success-transition {
+    animation: ec-scale-out 190ms ease forwards;
+}
+
+.auth-box.is-shake {
+    animation: ec-shake 360ms ease;
+}
+
+/* ---------- Campos: foco com leve elevação ---------- */
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+    transform: translateY(-1px);
+}
+
+/* ---------- Botões: hierarquia (primário ganha sombra e brilho) ---------- */
+
+.btn {
+    transition: background var(--ease), border-color var(--ease), transform var(--ease), box-shadow var(--ease);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0) scale(0.985);
+}
+
+.btn--primary {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn--primary:hover {
+    box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.28);
+}
+
+.btn--primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: translateX(-180%) skewX(-20deg);
+    pointer-events: none;
+}
+
+.btn--primary:hover::after {
+    animation: ec-shine 700ms ease;
+}
+
+.btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ---------- Menu lateral: ícone desliza levemente no hover ---------- */
+
+.nav-item svg {
+    transition: transform 150ms var(--ease-curve), opacity 130ms;
+}
+
+.nav-item:hover svg {
+    transform: translateX(2px);
+}
+
+/* ---------- Views: fade do container + entrada escalonada dos filhos
+   (cabeçalho → saudação → cards → informações), reaproveitada em
+   todas as telas. ---------- */
+
+.view.is-active {
+    animation: ec-fade-in 220ms var(--ease-curve) backwards;
+}
+
+.view.is-active>* {
+    animation: ec-fade-up 380ms var(--ease-curve) backwards;
+}
+
+.view.is-active> :nth-child(2) {
+    animation-delay: 60ms;
+}
+
+.view.is-active> :nth-child(3) {
+    animation-delay: 120ms;
+}
+
+.view.is-active> :nth-child(4) {
+    animation-delay: 180ms;
+}
+
+.view.is-active> :nth-child(n+5) {
+    animation-delay: 220ms;
+}
+
+/* ---------- Cards: cada tipo com seu efeito ---------- */
+
+.activity-card {
+    transition: box-shadow var(--ease), border-color var(--ease), transform var(--ease);
+}
+
+.activity-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Grids são recriados por innerHTML a cada render → nascem animados. */
+.activity-grid>.activity-card {
+    animation: ec-fade-up 320ms var(--ease-curve) backwards;
+}
+
+.activity-grid> :nth-child(2) {
+    animation-delay: 40ms;
+}
+
+.activity-grid> :nth-child(3) {
+    animation-delay: 80ms;
+}
+
+.activity-grid> :nth-child(n+4) {
+    animation-delay: 110ms;
+}
+
+/* Listas/tabelas dinâmicas: entrada curta, sem escalonar (evita
+   "piscar" em buscas digitadas). */
+.attention-row,
+.recent-row,
+.detail-activity-row {
+    animation: ec-fade-in 220ms var(--ease-curve) backwards;
+}
+
+.data-table tbody tr {
+    animation: ec-fade-in 180ms var(--ease-curve) backwards;
+}
+
+/* ---------- Modal ---------- */
+
+.modal-overlay.is-open {
+    animation: ec-fade-in 160ms ease backwards;
+}
+
+.modal-overlay.is-open .modal {
+    animation: ec-scale-in 220ms var(--ease-curve) backwards;
+}
+
+/* App (educador/aluno) surge com fade curto após o login, e as opções
+   da tela inicial entram em sequência. */
+.app.is-active {
+    animation: ec-fade-in 260ms var(--ease-curve) backwards;
+}
+
+.auth-choices>* {
+    animation: ec-fade-up 380ms var(--ease-curve) backwards;
+}
+
+.auth-choices> :nth-child(1) {
+    animation-delay: 160ms;
+}
+
+.auth-choices> :nth-child(2) {
+    animation-delay: 210ms;
+}
+
+.auth-choices> :nth-child(3) {
+    animation-delay: 260ms;
 }

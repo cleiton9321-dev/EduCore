@@ -8,39 +8,66 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 </head>
 
 <body>
 
     <!-- ============================================================
          TELA INICIAL — escolha de acesso
+         (split-screen: painel visual + painel de conteúdo, igual às
+         demais telas de autenticação — ver .auth-screen / .auth-visual)
     ============================================================ -->
     <div class="auth-screen screen is-active" id="screen-inicial">
-        <div class="auth-box auth-box--wide">
-            <div class="auth-brand">
-                <span class="brand-mark">EC</span>
-                <div class="brand-text">
-                    <strong>EduCore</strong>
-                    <span>Sistema escolar</span>
-                </div>
+        <div class="auth-visual" aria-hidden="true">
+            <div class="auth-visual-art">
+                <img src="img/imgLogin.jpg" alt="">
             </div>
-            <h1 class="auth-title">Como você deseja acessar?</h1>
-            <div class="auth-choices">
-                <button class="auth-choice" id="btn-ir-educador">
-                    <strong>Educador</strong>
-                    <span>Acessar o painel administrativo da turma</span>
-                </button>
-                <button class="auth-choice" id="btn-ir-cadastro-aluno">
-                    <strong>Cadastro de aluno</strong>
-                    <span>Criar uma conta de aluno pela primeira vez</span>
-                </button>
-                <button class="auth-choice" id="btn-ir-login-aluno">
-                    <strong>Login do aluno</strong>
-                    <span>Entrar com matrícula ou e-mail</span>
-                </button>
+            <div class="auth-visual-copy">
+                <span class="auth-visual-mark" aria-hidden="true"><svg class="brand-mark-icon" viewBox="0 0 32 32"
+                        fill="none" aria-hidden="true" focusable="false">
+                        <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                            stroke-dasharray="28.56 6 28.56 6" transform="rotate(-18 16 16)" />
+                        <circle cx="16" cy="16" r="3.6" fill="currentColor" />
+                    </svg></span>
+                <h2>EduCore</h2>
+                <p>Gestão educacional mais simples, clara e inteligente.</p>
+            </div>
+        </div>
+        <div class="auth-panel">
+            <div class="auth-box auth-box--wide">
+                <div class="auth-brand">
+                    <span class="brand-mark" aria-hidden="true"><svg class="brand-mark-icon" viewBox="0 0 32 32"
+                            fill="none" aria-hidden="true" focusable="false">
+                            <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2.6"
+                                stroke-linecap="round" stroke-dasharray="28.56 6 28.56 6"
+                                transform="rotate(-18 16 16)" />
+                            <circle cx="16" cy="16" r="3.6" fill="currentColor" />
+                        </svg></span>
+                    <div class="brand-text">
+                        <strong>EduCore</strong>
+                        <span>Sistema escolar</span>
+                    </div>
+                </div>
+                <h1 class="auth-title">Como você deseja acessar?</h1>
+                <p class="auth-lead">Escolha o tipo de conta para continuar.</p>
+                <div class="auth-choices">
+                    <button class="auth-choice" id="btn-ir-educador">
+                        <strong>Educador</strong>
+                        <span>Acessar o painel administrativo da turma</span>
+                    </button>
+                    <button class="auth-choice" id="btn-ir-cadastro-aluno">
+                        <strong>Cadastro de aluno</strong>
+                        <span>Criar uma conta de aluno pela primeira vez</span>
+                    </button>
+                    <button class="auth-choice" id="btn-ir-login-aluno">
+                        <strong>Login do aluno</strong>
+                        <span>Entrar com matrícula ou e-mail</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -49,22 +76,47 @@
          LOGIN DO EDUCADOR
     ============================================================ -->
     <div class="auth-screen screen" id="screen-login-educador">
-        <div class="auth-box">
-            <button class="auth-back" data-back="screen-inicial">&larr; Voltar</button>
-            <h1 class="auth-title">Login do educador</h1>
-            <form id="form-login-educador" class="auth-form">
-                <div class="field">
-                    <label for="ed-email">E-mail</label>
-                    <input type="email" id="ed-email" required autocomplete="username">
-                </div>
-                <div class="field">
-                    <label for="ed-senha">Senha</label>
-                    <input type="password" id="ed-senha" required autocomplete="current-password">
-                </div>
-                <p class="auth-error" id="ed-login-error" hidden></p>
-                <button type="submit" class="btn btn--primary btn--full">Entrar</button>
-            </form>
-            <p class="auth-hint">Conta de demonstração: patricia@educore.com / educore123</p>
+        <div class="auth-visual" aria-hidden="true">
+            <div class="auth-visual-art">
+                <img src="img/imgLogin.jpg" alt="">
+            </div>
+            <div class="auth-visual-copy">
+                <span class="auth-visual-mark" aria-hidden="true"><svg class="brand-mark-icon" viewBox="0 0 32 32"
+                        fill="none" aria-hidden="true" focusable="false">
+                        <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                            stroke-dasharray="28.56 6 28.56 6" transform="rotate(-18 16 16)" />
+                        <circle cx="16" cy="16" r="3.6" fill="currentColor" />
+                    </svg></span>
+                <h2>EduCore</h2>
+                <p>Painel do educador: turmas, notas e frequência em um só lugar.</p>
+            </div>
+        </div>
+        <div class="auth-panel">
+            <div class="auth-box">
+                <button class="auth-back" data-back="screen-inicial">&larr; Voltar</button>
+                <h1 class="auth-title">Bem-vindo de volta</h1>
+                <p class="auth-lead">Entre na sua conta para continuar.</p>
+                <form id="form-login-educador" class="auth-form">
+                    <div class="field field--underline">
+                        <label for="ed-email">E-mail</label>
+                        <input type="email" id="ed-email" required autocomplete="username">
+                    </div>
+                    <div class="field field--underline">
+                        <label for="ed-senha">Senha</label>
+                        <input type="password" id="ed-senha" required autocomplete="current-password">
+                    </div>
+                    <div class="auth-row">
+                        <label class="auth-check">
+                            <input type="checkbox" id="ed-lembrar">
+                            <span>Lembrar de mim</span>
+                        </label>
+                        <a href="#" class="auth-link">Esqueci minha senha</a>
+                    </div>
+                    <p class="auth-error" id="ed-login-error" hidden></p>
+                    <button type="submit" class="btn btn--primary btn--full">Entrar</button>
+                </form>
+                <p class="auth-hint">Conta de demonstração: patricia@educore.com / educore123</p>
+            </div>
         </div>
     </div>
 
@@ -72,29 +124,47 @@
          CADASTRO DO ALUNO
     ============================================================ -->
     <div class="auth-screen screen" id="screen-cadastro-aluno">
-        <div class="auth-box">
-            <button class="auth-back" data-back="screen-inicial">&larr; Voltar</button>
-            <h1 class="auth-title">Cadastro de aluno</h1>
-            <form id="form-cadastro-aluno" class="auth-form">
-                <div class="field">
-                    <label for="cad-nome">Nome completo</label>
-                    <input type="text" id="cad-nome" required>
-                </div>
-                <div class="field">
-                    <label for="cad-email">E-mail</label>
-                    <input type="email" id="cad-email" required autocomplete="username">
-                </div>
-                <div class="field">
-                    <label for="cad-senha">Senha</label>
-                    <input type="password" id="cad-senha" required autocomplete="new-password">
-                </div>
-                <div class="field">
-                    <label for="cad-turma">Turma</label>
-                    <select id="cad-turma" required></select>
-                </div>
-                <p class="auth-error" id="cad-aluno-error" hidden></p>
-                <button type="submit" class="btn btn--primary btn--full">Criar conta</button>
-            </form>
+        <div class="auth-visual" aria-hidden="true">
+            <div class="auth-visual-art">
+                <img src="img/imgLogin.jpg" alt="">
+            </div>
+            <div class="auth-visual-copy">
+                <span class="auth-visual-mark" aria-hidden="true"><svg class="brand-mark-icon" viewBox="0 0 32 32"
+                        fill="none" aria-hidden="true" focusable="false">
+                        <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                            stroke-dasharray="28.56 6 28.56 6" transform="rotate(-18 16 16)" />
+                        <circle cx="16" cy="16" r="3.6" fill="currentColor" />
+                    </svg></span>
+                <h2>EduCore</h2>
+                <p>Crie sua conta de aluno e acompanhe notas e frequência.</p>
+            </div>
+        </div>
+        <div class="auth-panel">
+            <div class="auth-box">
+                <button class="auth-back" data-back="screen-inicial">&larr; Voltar</button>
+                <h1 class="auth-title">Criar conta de aluno</h1>
+                <p class="auth-lead">Leva menos de um minuto.</p>
+                <form id="form-cadastro-aluno" class="auth-form">
+                    <div class="field field--underline">
+                        <label for="cad-nome">Nome completo</label>
+                        <input type="text" id="cad-nome" required>
+                    </div>
+                    <div class="field field--underline">
+                        <label for="cad-email">E-mail</label>
+                        <input type="email" id="cad-email" required autocomplete="username">
+                    </div>
+                    <div class="field field--underline">
+                        <label for="cad-senha">Senha</label>
+                        <input type="password" id="cad-senha" required autocomplete="new-password">
+                    </div>
+                    <div class="field field--underline">
+                        <label for="cad-turma">Turma</label>
+                        <select id="cad-turma" required></select>
+                    </div>
+                    <p class="auth-error" id="cad-aluno-error" hidden></p>
+                    <button type="submit" class="btn btn--primary btn--full">Criar conta</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -102,22 +172,40 @@
          LOGIN DO ALUNO
     ============================================================ -->
     <div class="auth-screen screen" id="screen-login-aluno">
-        <div class="auth-box">
-            <button class="auth-back" data-back="screen-inicial">&larr; Voltar</button>
-            <h1 class="auth-title">Login do aluno</h1>
-            <form id="form-login-aluno" class="auth-form">
-                <div class="field">
-                    <label for="al-identificador">Matrícula ou e-mail</label>
-                    <input type="text" id="al-identificador" required>
-                </div>
-                <div class="field">
-                    <label for="al-senha">Senha</label>
-                    <input type="password" id="al-senha" required autocomplete="current-password">
-                </div>
-                <p class="auth-error" id="al-login-error" hidden></p>
-                <button type="submit" class="btn btn--primary btn--full">Entrar</button>
-            </form>
-            <p class="auth-hint">Ainda não tem conta? <a href="#" id="link-ir-cadastro">Cadastre-se aqui</a>.</p>
+        <div class="auth-visual" aria-hidden="true">
+            <div class="auth-visual-art">
+                <img src="img/imgLogin.jpg" alt="">
+            </div>
+            <div class="auth-visual-copy">
+                <span class="auth-visual-mark" aria-hidden="true"><svg class="brand-mark-icon" viewBox="0 0 32 32"
+                        fill="none" aria-hidden="true" focusable="false">
+                        <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                            stroke-dasharray="28.56 6 28.56 6" transform="rotate(-18 16 16)" />
+                        <circle cx="16" cy="16" r="3.6" fill="currentColor" />
+                    </svg></span>
+                <h2>EduCore</h2>
+                <p>Suas notas, frequência e atividades, sempre à mão.</p>
+            </div>
+        </div>
+        <div class="auth-panel">
+            <div class="auth-box">
+                <button class="auth-back" data-back="screen-inicial">&larr; Voltar</button>
+                <h1 class="auth-title">Bem-vindo de volta</h1>
+                <p class="auth-lead">Entre com sua matrícula ou e-mail.</p>
+                <form id="form-login-aluno" class="auth-form">
+                    <div class="field field--underline">
+                        <label for="al-identificador">Matrícula ou e-mail</label>
+                        <input type="text" id="al-identificador" required>
+                    </div>
+                    <div class="field field--underline">
+                        <label for="al-senha">Senha</label>
+                        <input type="password" id="al-senha" required autocomplete="current-password">
+                    </div>
+                    <p class="auth-error" id="al-login-error" hidden></p>
+                    <button type="submit" class="btn btn--primary btn--full">Entrar</button>
+                </form>
+                <p class="auth-hint">Ainda não tem conta? <a href="#" id="link-ir-cadastro">Cadastre-se aqui</a>.</p>
+            </div>
         </div>
     </div>
 
@@ -128,10 +216,15 @@
 
         <aside class="sidebar">
             <div class="brand">
-                <span class="brand-mark">EC</span>
+                <span class="brand-mark" aria-hidden="true"><svg class="brand-mark-icon" viewBox="0 0 32 32" fill="none"
+                        aria-hidden="true" focusable="false">
+                        <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                            stroke-dasharray="28.56 6 28.56 6" transform="rotate(-18 16 16)" />
+                        <circle cx="16" cy="16" r="3.6" fill="currentColor" />
+                    </svg></span>
                 <div class="brand-text">
                     <strong>EduCore</strong>
-                    <span>Painel do professor</span>
+                    <span>Gestão educacional</span>
                 </div>
             </div>
 
@@ -145,6 +238,9 @@
                     </svg>
                     <span>Dashboard</span>
                 </button>
+
+                <p class="nav-group-label">Acadêmico</p>
+
                 <button class="nav-item" data-view="turmas">
                     <svg viewBox="0 0 20 20" fill="none">
                         <rect x="2.5" y="4" width="15" height="12" rx="1.2" stroke="currentColor" stroke-width="1.4" />
@@ -201,6 +297,9 @@
                     </svg>
                     <span>Desempenho</span>
                 </button>
+
+                <p class="nav-group-label">Gestão</p>
+
                 <button class="nav-item" data-view="atestados">
                     <svg viewBox="0 0 20 20" fill="none">
                         <path d="M5 2.5h7l3 3v12h-10z" stroke="currentColor" stroke-width="1.4"
@@ -219,6 +318,18 @@
                     </svg>
                     <span>Alertas</span>
                     <span class="nav-badge" id="badge-alertas" hidden></span>
+                </button>
+
+                <p class="nav-group-label">Sistema</p>
+
+                <button class="nav-item" data-view="configuracoes">
+                    <svg viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="2.6" stroke="currentColor" stroke-width="1.4" />
+                        <path
+                            d="M10 2.6v2.1M10 15.3v2.1M17.4 10h-2.1M4.7 10H2.6M15.1 4.9l-1.5 1.5M6.4 13.6l-1.5 1.5M15.1 15.1l-1.5-1.5M6.4 6.4 4.9 4.9"
+                            stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                    </svg>
+                    <span>Configurações</span>
                 </button>
             </nav>
 
@@ -255,6 +366,11 @@
 
                 <!-- DASHBOARD -->
                 <section id="view-dashboard" class="view is-active">
+                    <div class="content-heading">
+                        <h2>Olá, Professora 👋</h2>
+                        <p>Acompanhe o desempenho das suas turmas.</p>
+                    </div>
+
                     <div class="stat-strip" id="stat-strip"></div>
 
                     <div class="board-grid">
@@ -293,6 +409,10 @@
 
                 <!-- TURMAS -->
                 <section id="view-turmas" class="view">
+                    <div class="content-heading">
+                        <h2>Turmas</h2>
+                        <p>Organize as turmas cadastradas no EduCore.</p>
+                    </div>
                     <div class="view-toolbar">
                         <button class="btn btn--primary" id="btn-nova-turma">Nova turma</button>
                     </div>
@@ -301,6 +421,10 @@
 
                 <!-- ALUNOS -->
                 <section id="view-alunos" class="view">
+                    <div class="content-heading">
+                        <h2>Alunos</h2>
+                        <p>Gerencie os estudantes cadastrados no EduCore.</p>
+                    </div>
                     <div class="view-toolbar">
                         <div class="search-field">
                             <svg viewBox="0 0 20 20" fill="none">
@@ -341,6 +465,10 @@
 
                 <!-- ATIVIDADES -->
                 <section id="view-atividades" class="view">
+                    <div class="content-heading">
+                        <h2>Atividades</h2>
+                        <p>Cadastre e acompanhe as atividades de cada bimestre.</p>
+                    </div>
                     <div class="view-toolbar">
                         <select id="atividade-filter-bimestre">
                             <option value="todos">Todos os bimestres</option>
@@ -357,6 +485,10 @@
 
                 <!-- NOTAS -->
                 <section id="view-notas" class="view">
+                    <div class="content-heading">
+                        <h2>Notas</h2>
+                        <p>Lance e consulte as notas por atividade.</p>
+                    </div>
                     <div class="panel panel--form">
                         <div class="panel-head">
                             <h2>Lançar nota</h2>
@@ -394,6 +526,10 @@
 
                 <!-- FREQUÊNCIA -->
                 <section id="view-frequencia" class="view">
+                    <div class="content-heading">
+                        <h2>Frequência</h2>
+                        <p>Registre a presença por turma, data e aula.</p>
+                    </div>
                     <div class="panel panel--form">
                         <div class="panel-head">
                             <h2>Registrar frequência</h2>
@@ -457,6 +593,10 @@
 
                 <!-- DESEMPENHO -->
                 <section id="view-desempenho" class="view">
+                    <div class="content-heading">
+                        <h2>Desempenho</h2>
+                        <p>Analise médias, frequência e evolução por bimestre.</p>
+                    </div>
                     <div class="view-toolbar">
                         <select id="desempenho-turma-select"></select>
                         <select id="desempenho-aluno-select">
@@ -485,10 +625,14 @@
 
                 <!-- ATESTADOS (educador) -->
                 <section id="view-atestados" class="view">
+                    <div class="content-heading">
+                        <h2>Atestados</h2>
+                        <p>Aprovar transforma a falta correspondente em justificada.</p>
+                    </div>
                     <div class="panel panel--table">
                         <div class="panel-head">
                             <h2>Atestados enviados</h2>
-                            <span class="panel-head-hint">Aprovar transforma a falta em justificada</span>
+                            <span class="panel-head-hint">Pendentes, aprovados e recusados</span>
                         </div>
                         <table class="data-table">
                             <thead>
@@ -508,12 +652,116 @@
 
                 <!-- ALERTAS -->
                 <section id="view-alertas" class="view">
+                    <div class="content-heading">
+                        <h2>Alertas</h2>
+                        <p>Situações que merecem atenção, geradas automaticamente.</p>
+                    </div>
                     <div class="panel">
                         <div class="panel-head">
                             <h2>Alunos que precisam de atenção</h2>
                             <span class="panel-head-hint">Gerado automaticamente</span>
                         </div>
                         <div id="alertas-list" class="attention-list"></div>
+                    </div>
+                </section>
+
+                <!-- CONFIGURAÇÕES -->
+                <section id="view-configuracoes" class="view">
+                    <div class="content-heading">
+                        <h2>Configurações</h2>
+                        <p>Perfil, aparência e acessibilidade.</p>
+                    </div>
+
+                    <div class="panel panel--settings">
+                        <div class="panel-head">
+                            <h2>Perfil</h2>
+                        </div>
+                        <div class="settings-profile">
+                            <div class="teacher-avatar teacher-avatar--lg" id="config-perfil-avatar">PS</div>
+                            <div>
+                                <strong id="config-perfil-nome">Profa. Patrícia Souza</strong>
+                                <span id="config-perfil-email">patricia@educore.com</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel--settings">
+                        <div class="panel-head">
+                            <h2>Preferências</h2>
+                            <span class="panel-head-hint">Aparência e acessibilidade</span>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3>Tema</h3>
+                            <div class="option-row">
+                                <label class="radio-pill">
+                                    <input type="radio" name="config-tema" value="claro">
+                                    <span>Claro</span>
+                                </label>
+                                <label class="radio-pill">
+                                    <input type="radio" name="config-tema" value="escuro">
+                                    <span>Escuro</span>
+                                </label>
+                                <label class="radio-pill">
+                                    <input type="radio" name="config-tema" value="sistema">
+                                    <span>Sistema</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3>Tamanho da fonte</h3>
+                            <div class="option-row">
+                                <label class="radio-pill">
+                                    <input type="radio" name="config-fonte" value="pequena">
+                                    <span>Pequena</span>
+                                </label>
+                                <label class="radio-pill">
+                                    <input type="radio" name="config-fonte" value="normal">
+                                    <span>Normal</span>
+                                </label>
+                                <label class="radio-pill">
+                                    <input type="radio" name="config-fonte" value="grande">
+                                    <span>Grande</span>
+                                </label>
+                                <label class="radio-pill">
+                                    <input type="radio" name="config-fonte" value="muitoGrande">
+                                    <span>Muito grande</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3>Acessibilidade</h3>
+                            <label class="switch-row">
+                                <span>
+                                    <strong>Alto contraste</strong>
+                                    <em>Aumenta o contraste de textos, bordas e badges.</em>
+                                </span>
+                                <span class="switch">
+                                    <input type="checkbox" id="config-alto-contraste">
+                                    <span class="switch-track"></span>
+                                </span>
+                            </label>
+                            <label class="switch-row">
+                                <span>
+                                    <strong>Reduzir animações</strong>
+                                    <em>Remove transições e movimentos decorativos.</em>
+                                </span>
+                                <span class="switch">
+                                    <input type="checkbox" id="config-reduzir-animacoes">
+                                    <span class="switch-track"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="panel panel--settings">
+                        <div class="panel-head">
+                            <h2>Sistema</h2>
+                        </div>
+                        <p class="config-note">EduCore v1 · Os dados deste sistema ficam salvos apenas neste
+                            navegador (localStorage).</p>
                     </div>
                 </section>
 
@@ -528,7 +776,12 @@
 
         <aside class="sidebar">
             <div class="brand">
-                <span class="brand-mark">EC</span>
+                <span class="brand-mark" aria-hidden="true"><svg class="brand-mark-icon" viewBox="0 0 32 32" fill="none"
+                        aria-hidden="true" focusable="false">
+                        <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                            stroke-dasharray="28.56 6 28.56 6" transform="rotate(-18 16 16)" />
+                        <circle cx="16" cy="16" r="3.6" fill="currentColor" />
+                    </svg></span>
                 <div class="brand-text">
                     <strong>EduCore</strong>
                     <span>Área do aluno</span>

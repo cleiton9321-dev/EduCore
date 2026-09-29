@@ -615,6 +615,7 @@ const viewTitles = {
   desempenho: ["Desempenho", "Análise de resultados"],
   atestados: ["Atestados", "Análise de justificativas de falta"],
   alertas: ["Alertas", "Situações que merecem atenção"],
+  configuracoes: ["Configurações", "Perfil, aparência e acessibilidade"],
 };
 
 let currentView = "dashboard";
@@ -1726,6 +1727,7 @@ function renderAll() {
   renderAtestadosEducador();
   renderAlertas();
   atualizarBadges();
+  renderConfiguracoes();
 
   const educador = usuarioAtualEducador();
   if (educador) {
@@ -1968,6 +1970,180 @@ function handleEnviarAtestado(e) {
 }
 
 /* ================================================================
+   ACESSIBILIDADE / PREFERÊNCIAS (novo)
+   ================================================================
+   Guarda tema, tamanho de fonte, alto contraste e redução de
+   animação em localStorage e aplica tudo via atributos/classes no
+   <html>, para que também valham nas telas de autenticação e na
+   área do aluno — sem tocar em nenhuma lógica de dados acima.
+   ================================================================ */
+
+const PREFS_KEY = "educore_prefs_v1";
+
+function preferenciasPadrao() {
+  return {
+    tema: "sistema", // 'claro' | 'escuro' | 'sistema'
+    fonte: "normal", // 'pequena' | 'normal' | 'grande' | 'muitoGrande'
+    altoContraste: false,
+    reduzirAnimacoes: false,
+  };
+}
+
+let prefs = preferenciasPadrao();
+
+function carregarPreferencias() {
+  try {
+    const bruto = localStorage.getItem(PREFS_KEY);
+    if (bruto) prefs = { ...preferenciasPadrao(), ...JSON.parse(bruto) };
+  } catch (e) {
+    prefs = preferenciasPadrao();
+  }
+}
+
+function salvarPreferencias() {
+  try {
+    localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
+  } catch (e) {
+    console.warn("Não foi possível salvar preferências.", e);
+  }
+}
+
+function temaResolvido() {
+  if (prefs.tema === "sistema") {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "escuro"
+      : "claro";
+  }
+  return prefs.tema;
+}
+
+function aplicarPreferencias() {
+  const root = document.documentElement;
+
+  root.setAttribute("data-theme", temaResolvido() === "escuro" ? "dark" : "light");
+
+  const mapaFonte = { pequena: "small", normal: "normal", grande: "large", muitoGrande: "xlarge" };
+  root.setAttribute("data-font-size", mapaFonte[prefs.fonte] || "normal");
+
+  root.classList.toggle("high-contrast", !!prefs.altoContraste);
+  root.classList.toggle("reduce-motion", !!prefs.reduzirAnimacoes);
+}
+
+/* ---------- Microinterações do login (ver style.css, seção 18) ----------
+   Só adicionam/removem classes de CSS: não mudam nenhuma regra de
+   autenticação. Respeitam "reduzir animações" e prefers-reduced-motion
+   (nesse caso pulam também a espera artificial). */
+
+function movimentoReduzido() {
+  return (
+    !!prefs.reduzirAnimacoes ||
+    (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+  );
+}
+
+// Pequena confirmação visual (~190ms) antes de entrar no sistema.
+function transicionarParaApp(formEl, callback) {
+  const box = formEl.closest(".auth-box");
+  if (!box || movimentoReduzido()) {
+    callback();
+    return;
+  }
+  box.classList.add("is-success-transition");
+  window.setTimeout(() => {
+    callback();
+    box.classList.remove("is-success-transition");
+  }, 190);
+}
+
+// Tremor discreto no card quando o login/cadastro falha.
+function sacudirErro(formEl) {
+  const box = formEl.closest(".auth-box");
+  if (!box || movimentoReduzido()) return;
+  box.classList.remove("is-shake");
+  void box.offsetWidth; // reflow: permite reiniciar a animação
+  box.classList.add("is-shake");
+  // animationend também "borbulha" das animações dos filhos: só limpa quando for a do próprio card
+  const limpar = (ev) => {
+    if (ev.target !== box) return;
+    box.classList.remove("is-shake");
+    box.removeEventListener("animationend", limpar);
+  };
+  box.addEventListener("animationend", limpar);
+}
+
+function renderConfiguracoes() {
+  const secao = document.getElementById("view-configuracoes");
+  if (!secao) return;
+
+  const educador = usuarioAtualEducador();
+  if (educador) {
+    const nomeEl = document.getElementById("config-perfil-nome");
+    const emailEl = document.getElementById("config-perfil-email");
+    const avatarEl = document.getElementById("config-perfil-avatar");
+    if (nomeEl) nomeEl.textContent = educador.nome;
+    if (emailEl) emailEl.textContent = educador.email;
+    if (avatarEl) {
+      avatarEl.textContent = educador.nome
+        .split(" ")
+        .map((p) => p[0])
+        .join("")
+        .slice(0, 2)
+        .toUpperCase();
+    }
+  }
+
+  const radiosTema = document.querySelectorAll('input[name="config-tema"]');
+  radiosTema.forEach((r) => {
+    r.checked = r.value === prefs.tema;
+  });
+
+  const radiosFonte = document.querySelectorAll('input[name="config-fonte"]');
+  radiosFonte.forEach((r) => {
+    r.checked = r.value === prefs.fonte;
+  });
+
+  const contrasteEl = document.getElementById("config-alto-contraste");
+  if (contrasteEl) contrasteEl.checked = !!prefs.altoContraste;
+
+  const animacoesEl = document.getElementById("config-reduzir-animacoes");
+  if (animacoesEl) animacoesEl.checked = !!prefs.reduzirAnimacoes;
+}
+
+function inicializarEventosConfiguracoes() {
+  document.querySelectorAll('input[name="config-tema"]').forEach((r) => {
+    r.addEventListener("change", () => {
+      if (r.checked) {
+        prefs.tema = r.value;
+        salvarPreferencias();
+        aplicarPreferencias();
+      }
+    });
+  });
+
+  document.querySelectorAll('input[name="config-fonte"]').forEach((r) => {
+    r.addEventListener("change", () => {
+      if (r.checked) {
+        prefs.fonte = r.value;
+        salvarPreferencias();
+        aplicarPreferencias();
+      }
+    });
+  });
+
+  on("config-alto-contraste", "change", (e) => {
+    prefs.altoContraste = e.target.checked;
+    salvarPreferencias();
+    aplicarPreferencias();
+  });
+
+  on("config-reduzir-animacoes", "change", (e) => {
+    prefs.reduzirAnimacoes = e.target.checked;
+    salvarPreferencias();
+    aplicarPreferencias();
+  });
+}
+
+/* ================================================================
    EVENTOS
    ================================================================ */
 
@@ -2011,11 +2187,13 @@ function inicializarNavegacaoAuth() {
 
     if (loginEducador(email, senha)) {
       erroEl.hidden = true;
-      e.target.reset();
-      entrarComoEducador();
+      const form = e.target;
+      form.reset();
+      transicionarParaApp(form, entrarComoEducador);
     } else {
       erroEl.textContent = "E-mail ou senha inválidos.";
       erroEl.hidden = false;
+      sacudirErro(e.target);
     }
   });
 
@@ -2030,6 +2208,7 @@ function inicializarNavegacaoAuth() {
     if (!turmaId) {
       erroEl.textContent = "Cadastre uma turma antes de criar contas de aluno.";
       erroEl.hidden = false;
+      sacudirErro(e.target);
       return;
     }
 
@@ -2037,6 +2216,7 @@ function inicializarNavegacaoAuth() {
     if (!resultado.ok) {
       erroEl.textContent = resultado.erro;
       erroEl.hidden = false;
+      sacudirErro(e.target);
       return;
     }
 
@@ -2056,11 +2236,13 @@ function inicializarNavegacaoAuth() {
 
     if (loginAluno(identificador, senha)) {
       erroEl.hidden = true;
-      e.target.reset();
-      entrarComoAluno();
+      const form = e.target;
+      form.reset();
+      transicionarParaApp(form, entrarComoAluno);
     } else {
       erroEl.textContent = "Matrícula/e-mail ou senha inválidos.";
       erroEl.hidden = false;
+      sacudirErro(e.target);
     }
   });
 }
@@ -2088,6 +2270,8 @@ function inicializarEventosEducador() {
     renderDesempenho();
   });
   on("desempenho-aluno-select", "change", renderDesempenho);
+
+  inicializarEventosConfiguracoes();
 }
 
 function inicializarEventosAluno() {
@@ -2101,6 +2285,9 @@ function inicializarEventosAluno() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  carregarPreferencias();
+  aplicarPreferencias();
+
   carregarDados();
   carregarSessao();
 
